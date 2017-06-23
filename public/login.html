@@ -64,9 +64,12 @@
 
           <h3>Login</h3>
           <ul>
-            <li><a href='index.html'>Login with Google</a></li>
             <li><a href='index.html'>Login with Facebook</a></li>
+            <li><a href='index.html'>Login with Twitter</a></li>
+            <li><a href='index.html'>Login with Google</a></li>
           </ul>
+
+          <div id='recaptcha-container'></div>
 
         </div>
       </main>
@@ -77,8 +80,32 @@
       <i class="material-icons">add</i>
     </button>
 
+
     <!-- bottom scripts -->
     <script src="lib/jquery/jquery-3.2.1.min.js"></script>
     <script src="lib/mdl/material.min.js"></script>
+
+    <!-- authen with phone -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
+    <script>
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+      var phoneNumber = '+66840304251'; // getPhoneNumberFromUserInput();
+      var appVerifier = window.recaptchaVerifier;
+      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(function (confirmationResult) {
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          window.confirmationResult = confirmationResult;
+          console.log('AAA');
+        }).catch(function (error) {
+          // Error; SMS not sent
+          // ...
+          console.log('BBB');
+        });
+
+
+    </script>
+    
   </body>
 </html>
