@@ -56,16 +56,31 @@
             var errorMessage = error.message;
             console.log("User Registered");
         });
+        return false;
     }
     </script>
   </head>
   <body>
     <div id="status">Not logged in</div>
     <a onclick="login_anon()" href="javascript:void(0);">Login Anonymously</a>
-    <form method="post" onsubmit="return link_email()">
+    <form id="login_form">
         <input id="login_user" type="text" name="user">
         <input id="login_pass" type="password" name="pass">
         <input type="submit" id="submit" name="submit" value="Register">
     </form>
+    <script>
+        login_form = document.querySelector('#login_form');
+        login_form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            var email = document.querySelector('#login_user').value;
+            var pass = document.querySelector('#login_pass').value;
+            firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log("User Register Error!" + errorMessage);
+            });
+        })
+    </script>
   </body>
 </html>
