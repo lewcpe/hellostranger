@@ -21,6 +21,7 @@
             "bio" : "Me in somewhere",
             "pic" : "https://xxx.firebaseapp.com/userprofile.jpg",
             "created" : 1498121589,
+            "relationship_confirmed": 0,
             "status" : 1
         },
         "pid-295sk32" : {
@@ -30,6 +31,7 @@
             "bio" : "What do you want",
             "pic" : "https://xxx.firebaseapp.com/userprofile-295sk32.jpg",
             "created" : 1498121763,
+            "relationship_confirmed": 0,
             "status" : 1
         },
         "pid-598dkfi5" : {
@@ -39,6 +41,7 @@
             "bio" : "I dont know him much.",
             "pic" : "https://xxx.firebaseapp.com/userprofile-295sk32.jpg",
             "created" : 1498121745,
+            "relationship_confirmed": 0,
             "status" : 1
         }
     },
