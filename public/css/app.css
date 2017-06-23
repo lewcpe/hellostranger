@@ -1,0 +1,16 @@
+/* fixed hamburger bars position */
+header.mdl-layout__header i {
+  margin-top: 12px;
+}
+/* modified card */
+.mdl-card {
+  width: 95%;
+  margin: 10px auto;
+}
+/* place main button in bottom-right */
+button.btn-main {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 2;
+}
