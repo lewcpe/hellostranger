@@ -29,9 +29,11 @@
             var isAnonymous = user.isAnonymous;
             var uid = user.uid;
             console.log("Login success with uid [" + uid + "]");
+            document.querySelector('#status').innerText = "Logged In";
         } else {
             // User is signed out.
             console.log("Sign out success");
+            document.querySelector('#status').innerText = "Not Logged In";
         }
         console.log("Login state changed.");
     });
@@ -45,9 +47,19 @@
             console.log(errorMessage);
         });        
     }
+    function link_email() {
+        var email = document.querySelector('#login_user').value;
+        var pass = document.querySelector('#login_pass').value;
+    }
     </script>
   </head>
   <body>
-      <a onclick="login_anon()" href="javascript:void(0);">Login Anonymously</a>
+    <div id="status">Not logged in</div>
+    <a onclick="login_anon()" href="javascript:void(0);">Login Anonymously</a>
+    <form method="post" onsubmit="return link_email()">
+        <input id="login_user" type="text" name="user">
+        <input id="login_pass" type="password" name="pass">
+        <input type="submit" id="submit" name="submit" value="Register">
+    </form>
   </body>
 </html>
