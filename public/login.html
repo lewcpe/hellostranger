@@ -63,23 +63,33 @@
         <div class="page-content">
 
           <h3>Login</h3>
+
           <ul>
+            <li>
+              Login with phone number
+              <input id='tel_no' type='tel' value='+668'>
+              <input id='tel_sub' type='button' value='Submit'>
+              <div id='sms-container'>
+                sms code : <input id='sms_code' type='text'>
+                <input id='sms_sub' type='button' value='Submit'>
+              </div>
+              <div id='recaptcha-container'></div>
+            </li>
             <li><a href='index.html'>Login with Facebook</a></li>
             <li><a href='index.html'>Login with Twitter</a></li>
             <li><a href='index.html'>Login with Google</a></li>
           </ul>
-
-          <div id='recaptcha-container'></div>
 
         </div>
       </main>
     </div>
 
     <!-- bottom right button -->
+    <!--
     <button class="btn-main mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
       <i class="material-icons">add</i>
     </button>
-
+    -->
 
     <!-- bottom scripts -->
     <script src="lib/jquery/jquery-3.2.1.min.js"></script>
@@ -89,22 +99,39 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
     <script>
+      // ##### PHONE LOGIN #####
+      $('#recaptcha-container').hide();
+      $('#sms-container').hide();
+      //
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      var phoneNumber = '+66840304251'; // getPhoneNumberFromUserInput();
       var appVerifier = window.recaptchaVerifier;
-      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then(function (confirmationResult) {
-          // SMS sent. Prompt user to type the code from the message, then sign the
-          // user in with confirmationResult.confirm(code).
-          window.confirmationResult = confirmationResult;
-          console.log('AAA');
+      $('#tel_sub').click(function(){
+        $('#recaptcha-container').show();
+        var phoneNumber = $('#tel_no').val();
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+          .then(function (confirmationResult) {
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            window.confirmationResult = confirmationResult;
+            $('#recaptcha-container').hide();
+            $('#sms-container').show();
+          }).catch(function (error) {
+            window.recaptchaVerifier.render().then(function(widgetId) {
+              grecaptcha.reset(widgetId);
+            });
+            alert(error);
+          });
+      });
+      $('#sms_sub').click(function(){
+        var code = $('#sms_code').val();
+        confirmationResult.confirm(code).then(function (result) {
+          window.user = result.user;
+          console.log(result);
+          alert('Login done');
         }).catch(function (error) {
-          // Error; SMS not sent
-          // ...
-          console.log('BBB');
+          alert(error);
         });
-
-
+      });
     </script>
     
   </body>
