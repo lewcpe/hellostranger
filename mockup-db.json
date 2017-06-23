@@ -31,16 +31,14 @@
             "pic" : "https://xxx.firebaseapp.com/userprofile-295sk32.jpg",
             "created" : 1498121763,
             "status" : 1
-        }
-    },
-    "relation" : {
-        "rid-3959dkv949" : {
-            "intiator" : "uid-18r4909",
-            "init_profile" : "pid-249dk05",
-            "responder" : "uid-3496ld50",
-            "resp_profile" : "pid-295sk32",
-            "created" : 1498123415,
-            "confirmed" : 1,
+        },
+        "pid-598dkfi5" : {
+            "uid" : "uid-18r4909",
+            "owner" : "uid-3496ld50",
+            "name" : "John Doe (School)",
+            "bio" : "I dont know him much.",
+            "pic" : "https://xxx.firebaseapp.com/userprofile-295sk32.jpg",
+            "created" : 1498121745,
             "status" : 1
         }
     },
