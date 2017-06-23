@@ -34,6 +34,8 @@
             "relationship_confirmed": 0,
             "status" : 1
         },
+    },
+    "friends" : {
         "pid-598dkfi5" : {
             "uid" : "uid-18r4909",
             "owner" : "uid-3496ld50",
