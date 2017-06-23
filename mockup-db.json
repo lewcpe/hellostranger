@@ -1,0 +1,64 @@
+{
+    "user" : {
+        "uid-18r4909" : {
+            "email" : null,
+            "tel" : null,
+            "facebook" : null,
+            "created" : 1498121615
+        },
+        "uid-3496ld50" : {
+            "email" : "w@w.com",
+            "tel" : "6689-294-4859",
+            "facebook" : null,
+            "created" : 1498121626
+        }
+    },
+    "profile" : {
+        "pid-249dk05" : {
+            "uid" : "uid-18r4909",
+            "owner" : "uid-18r4909",
+            "name" : "John Doe",
+            "bio" : "Me in somewhere",
+            "pic" : "https://xxx.firebaseapp.com/userprofile.jpg",
+            "created" : 1498121589,
+            "status" : 1
+        },
+        "pid-295sk32" : {
+            "uid" : "uid-3496ld50",
+            "owner" : "uid-3496ld50",
+            "name" : "Jane Doe",
+            "bio" : "What do you want",
+            "pic" : "https://xxx.firebaseapp.com/userprofile-295sk32.jpg",
+            "created" : 1498121763,
+            "status" : 1
+        }
+    },
+    "relation" : {
+        "rid-3959dkv949" : {
+            "intiator" : "uid-18r4909",
+            "init_profile" : "pid-249dk05",
+            "responder" : "uid-3496ld50",
+            "resp_profile" : "pid-295sk32",
+            "created" : 1498123415,
+            "confirmed" : 1,
+            "status" : 1
+        }
+    },
+    "post" : {
+        "post-3509ckf395" : {
+            "owner" : "uid-18r4909",
+            "message" : "Hello Stranger",
+            "pic" : "https://xxx.firebaseapp.com/post-4958fk50.jpg",
+            "created" : 1498123415,
+            "allowed" : ["uid-3496ld50"]   
+        }
+    },
+    "comments" : {
+        "c1" : {
+            "owner" : "uid-18r4909",
+            "message" : "Hello Too",
+            "created" : 1498123430,
+            "allowed" : ["uid-3496ld50"]
+        }
+    }
+}
