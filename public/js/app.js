@@ -52,6 +52,9 @@ function create_new_profile(displayname, bio, pic) {
 
 function add_friend(my_profileid, his_profileid) {
     get_profile_detail(his_profileid).then(function(his_detail) {
+        if (his_detail.status == 0) {
+            return false;
+        }
         var friendkey = firebase.database().ref().child('friends').push().key;
         var updates = {};
         his_detail.owner = firebase.auth().currentUser.uid;
@@ -64,5 +67,12 @@ function add_friend(my_profileid, his_profileid) {
             updates['friends/'+friendkey] = my_detail;
             return firebase.database().ref().update(updates);
         });
+    });
+}
+
+function get_all_friends() {
+    var uid = firebase.auth().currentUser.uid;
+    firebase.database().ref("friends").orderByChild('owner').equalTo(uid).on('value', function(snap) {
+        console.log(snap.val());
     });
 }
