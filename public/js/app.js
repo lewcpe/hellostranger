@@ -49,3 +49,20 @@ function create_new_profile(displayname, bio, pic) {
     updates['profiles/' + uid + "/" + profilelistkey] = profilekey;
     return firebase.database().ref().update(updates);
 }
+
+function add_friend(my_profileid, his_profileid) {
+    get_profile_detail(his_profileid).then(function(his_detail) {
+        var friendkey = firebase.database().ref().child('friends').push().key;
+        var updates = {};
+        his_detail.owner = firebase.auth().currentUser.uid;
+        his_detail.created = firebase.database.ServerValue.TIMESTAMP;
+        updates['friends/'+friendkey] = his_detail;
+        get_profile_detail(my_profileid).then(function(my_detail) {
+            my_detail.owner = his_detail.uid;
+            my_detail.created = firebase.database.ServerValue.TIMESTAMP;
+            var friendkey = firebase.database().ref().child('friends').push().key;
+            updates['friends/'+friendkey] = my_detail;
+            return firebase.database().ref().update(updates);
+        });
+    });
+}

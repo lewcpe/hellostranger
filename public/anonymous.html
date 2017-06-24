@@ -63,6 +63,10 @@
     function __create_profile() {
         create_new_profile("Test Me", "Not the one you know", null);
     }
+
+    function __add_friend() {
+        add_friend("profile-590dfjltrkj", "pid-295sk32");
+    }
     </script>
   </head>
   <body>
@@ -76,6 +80,7 @@
     <div id="profiles">No profile found</div>
     <a onclick="get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
     <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
+    <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {
