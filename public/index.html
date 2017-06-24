@@ -1,90 +1,162 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Control social network, NOT social network controls you.">
+    <meta name="description" content="Hello Strager is a social network designed for privacy-concerned people. It will make sure anything you post never spread wider than those you intended to.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <!-- Start favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="Hello Stranger">
-    <meta name="application-name" content="Hello Stranger">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Start favicon -->
     <title>Hello Stranger</title>
+
+    <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-storage.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-          apiKey: "AIzaSyBi2eKbCreXTrxpAY5MrBDMi6f-arySOhQ",
-          authDomain: "hellostranger-a3014.firebaseapp.com",
-          databaseURL: "https://hellostranger-a3014.firebaseio.com",
-          projectId: "hellostranger-a3014",
-          storageBucket: "hellostranger-a3014.appspot.com",
-          messagingSenderId: "549083960147"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <!--
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
-    <link rel="shortcut icon" href="images/favicon.png">
-    -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="lib/mdl/material.min.css">
-    <link rel="stylesheet" href="css/app.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery/jquery-2.1.1.min.js"></script>
+
+    <!-- materialize -->
+    <link type="text/css" rel="stylesheet" href="lib/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- app -->
+    <link type="text/css" rel="stylesheet" href="css/app.css"  media="screen,projection"/>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
   </head>
   <body>
 
-    <!-- Always shows a header, even in smaller screens. -->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Hello Stranger</span>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Hello Stranger</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
+    <nav class="teal" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo">Logo</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#">Action A</a></li>
+          <li><a href="#">Action B</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Action A</a></li>
+          <li><a href="#">Action B</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
-      <main class="mdl-layout__content">
-        <div class="page-content">
+    </nav>
+    <div class="container">
 
-          <h3>Hello, Stranger</h3>
+      <!-- feed -->
+      <div class="row">
 
+        <div class="col m12 l6">
+          <div class="card">
+            <div class="card-content">
+              <div class='poster'>
+                <img class='left avatar' src='android-chrome-192x192.png'>
+                <div class='name'>Username Username</div>
+                <div>2016-01-01 00:00</div>
+                <div class='clear'></div>
+              </div>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-image">
+              <img src="img/sample-1.jpg">
+            </div>
+            <div class="card-action friend">
+              <img src='android-chrome-192x192.png'>
+              <img src='android-chrome-192x192.png'>
+              <img src='android-chrome-192x192.png'>
+              <img src='android-chrome-192x192.png'>
+              <img src='android-chrome-192x192.png'>
+            </div>
+            <div class="card-action">
+              other...
+            </div>
+          </div>
         </div>
-      </main>
+
+        <!-- sample data -->
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+        <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div> <div class="col m12 l6"> <div class="card"> <div class="card-content"> <div class='poster'> <img class='left avatar' src='android-chrome-192x192.png'> <div class='name'>Username Username</div> <div>2016-01-01 00:00</div> <div class='clear'></div> </div> <p>I am a very simple card. I am good at containing small bits of information.  I am convenient because I require little markup to use effectively.</p> </div> </div> </div>
+
+      </div>
+
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red new">
+          <i class="large material-icons">mode_edit</i>
+        </a>
+      </div>
+
     </div>
 
-    <!-- bottom right button -->
-    <button class="btn-main mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-      <i class="material-icons">add</i>
-    </button>
+    <!-- post modal -->
+    <div id="post-modal" class="modal">
+      <div class="modal-content">
 
-    <!-- bottom scripts -->
-    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
-    <script src="lib/mdl/material.min.js"></script>
+        <div class="row">
+          <div class="col m6 hide-on-small-only">
+            <h5>Post new message</h5>
+          </div>
+          <div class="col m6 s12 corner right-align">
+            <button id='submit' class="btn waves-effect waves-light" type="submit" name="action">POST</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="msg" class="materialize-textarea"></textarea>
+            <label for="msg">Message</label>
+          </div>
+        </div>
+        <div class="file-field input-field hide">
+          <div class="btn">
+            <span>Photo</span>
+            <input id='photo' type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <h5>Allow friends</h5>
+            <p>
+              <input type="checkbox" id="test6" checked="checked" />
+              <label for="test6">Yellow</label>
+            </p>
+            <p>
+              <input type="checkbox" id="test6" checked="checked" />
+              <label for="test6">Yellow</label>
+            </p>
+            <p>
+              <input type="checkbox" id="test6" checked="checked" />
+              <label for="test6">Yellow</label>
+            </p>
+            <p>
+              <input type="checkbox" id="test6" checked="checked" />
+              <label for="test6">Yellow</label>
+            </p>
+            <p>
+              <input type="checkbox" id="test6" checked="checked" />
+              <label for="test6">Yellow</label>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- check logged-in -->
+    <script src="js/auth.js"></script>
+
+    <!-- EOF scripts -->
+    <script type="text/javascript" src="js/ui.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/feed.js"></script>
   </body>
 </html>

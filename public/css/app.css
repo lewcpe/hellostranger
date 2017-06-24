@@ -1,16 +1,29 @@
-/* fixed hamburger bars position */
-header.mdl-layout__header i {
-  margin-top: 12px;
+/* common classes */
+.clear {
+  clear: both;
 }
-/* modified card */
-.mdl-card {
-  width: 95%;
-  margin: 10px auto;
+
+/* add profile */
+.corner button {
+  margin-top: 5px;
 }
-/* place main button in bottom-right */
-button.btn-main {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  z-index: 2;
+
+/* feed */
+.card .card-content .poster {
+  margin-bottom: 5px;
+}
+.card .card-content .avatar {
+  height: 50px;
+  margin-right: 10px;
+}
+.card .card-content .name {
+  font-weight: bold;
+  padding-top: 6px;
+}
+.card .card-action.friend {
+  padding: 5px;
+}
+.card .card-action.friend img {
+  border-radius: 50%;
+  height: 40px;
 }

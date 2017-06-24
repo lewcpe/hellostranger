@@ -71,7 +71,11 @@
     }
 
     function __add_friend() {
-        add_friend("profile-590dfjltrkj", "pid-295sk32");
+        get_profile_detail("-KnP3Rp8i_3s_8gREUnU").then(function(snap) {
+            console.log("Get Profile");
+            console.log(snap);
+        });
+        add_friend("-KnP89RdLZpjkO8n8c4M","-KnQIDMkooOqMMe7E2nq");
     }
 
     function __create_post() {
@@ -96,6 +100,20 @@
             }
         });
     }
+
+    function __create_comment() {
+        create_new_comment("Thinking about it", "post-3509ckf395");
+    }
+
+    function __get_all_friends() {
+        get_all_friends().then(function(snap) {
+            console.log(snap);
+        });
+        get_all_friends("ykSAhflCaWMUYySh5JzbMCHxj553").then(function(snap) {
+            console.log("Yuwat Friend");
+            console.log(snap);
+        });
+    }
     </script>
   </head>
   <body>
@@ -110,10 +128,12 @@
     <a onclick="__get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
     <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
     <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
-    <a onclick="get_all_friends()" href="javascript:void(0);">Get All Friends</a>
+    <a onclick="__get_all_friends()" href="javascript:void(0);">Get All Friends</a>
     <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
     <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
     <a onclick="__get_timeline()" href="javascript:void(0);">Get Timeline</a>
+    <a onclick="__create_comment()" href="javascript:void(0);">Create Comment</a>
+    <a onclick="__get_comment_for_post()" href="javascript:void(0);">Get Comments</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {
