@@ -90,8 +90,10 @@
     }
     function __get_timeline() {
         get_timeline().then(function(snap) {
-            console.log("Get Timeline");
-            console.log(snap.val());
+            console.log("Get TL Outside");
+            for(let i in snap) {
+                console.log(snap[i]);
+            }
         });
     }
     </script>
