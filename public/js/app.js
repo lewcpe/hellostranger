@@ -106,3 +106,8 @@ function get_post_from_user(cuid) {
     let uid = cuid || firebase.auth().currentUser.uid;
     return firebase.database().ref("post").orderByChild("owner").equalTo(uid).once('value');
 }
+
+function get_timeline() {
+    let uid = firebase.auth().currentUser.uid;
+    //TODO:
+}
