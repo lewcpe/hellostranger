@@ -99,10 +99,18 @@ function create_new_post(message, pic, allowed_friends) {
     for (let fuid of allowed_friends) {
         console.log("Create Allowd for " + fuid);
         allowref.child(fuid).set(1);
+        let timelineref = firebase.database().ref("timeline/" + fuid)
+        timelineref.child(postkey).set(firebase.database.ServerValue.TIMESTAMP);
     }
 }
 
 function get_post_from_user(cuid) {
     let uid = cuid || firebase.auth().currentUser.uid;
     return firebase.database().ref("post").orderByChild("owner").equalTo(uid).once('value');
+}
+
+function get_timeline() {
+    let uid = firebase.auth().currentUser.uid;
+    let timelineref = firebase.database().ref("timeline/" + uid)
+    return timelineref.once('value');
 }
