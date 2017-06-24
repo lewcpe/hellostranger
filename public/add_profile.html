@@ -37,14 +37,14 @@
           <label for="name">Name</label>
         </div>
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Bio</label>
+          <textarea id="bio" class="materialize-textarea"></textarea>
+          <label for="bio">Bio</label>
         </div>
       </div>
       <div class="file-field input-field">
         <div class="btn">
           <span>Photo</span>
-          <input type="file">
+          <input id='photo' type="file">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -62,5 +62,18 @@
     <script type="text/javascript" src="lib/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/ui.js"></script>
+    <script type="text/javascript" src="js/random_name.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/inherit.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/PhraseValidator.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/bioGrammar.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/Rewriter.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/parser.js"></script>
+    <script type="text/javascript" src="lib/bio-gen/token.js"></script>
+    <script type="text/javascript">
+      // start with random values
+      $('#name').val(generateName());
+      var rewriter = new Rewriter();
+      $('#bio').val(rewriter.FullSubstitution("<bio>", bioGrammar));
+    </script>
   </body>
 </html>
