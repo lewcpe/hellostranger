@@ -3,136 +3,77 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Control social network, NOT social network controls you.">
+    <meta name="description" content="Hello Strager is a social network designed for privacy-concerned people. It will make sure anything you post never spread wider than those you intended to.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Hello Stranger</title>
+    <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-storage.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-          apiKey: "AIzaSyBi2eKbCreXTrxpAY5MrBDMi6f-arySOhQ",
-          authDomain: "hellostranger-a3014.firebaseapp.com",
-          databaseURL: "https://hellostranger-a3014.firebaseio.com",
-          projectId: "hellostranger-a3014",
-          storageBucket: "hellostranger-a3014.appspot.com",
-          messagingSenderId: "549083960147"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <!--
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
-    <link rel="shortcut icon" href="images/favicon.png">
-    -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="lib/mdl/material.min.css">
-    <link rel="stylesheet" href="css/app.css">
+    <!-- firebaseUI -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
+    <!-- app scripts -->
+    <script src="js/common.js"></script>
+    <script src="js/config.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/login.css" />
   </head>
   <body>
 
-    <!-- Always shows a header, even in smaller screens. -->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Hello Stranger</span>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Hello Stranger</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-      </div>
-      <main class="mdl-layout__content">
-        <div class="page-content">
-
-          <h3>Login</h3>
-
-          <ul>
-            <li>
-              Login with phone number
-              <input id='tel_no' type='tel' value='+668'>
-              <input id='tel_sub' type='button' value='Submit'>
-              <div id='sms-container'>
-                sms code : <input id='sms_code' type='text'>
-                <input id='sms_sub' type='button' value='Submit'>
+   <div id="container">
+       <h1>
+         <img align='top' src='favicon-32x32.png'>
+         Hello Stranger
+       </h1>
+      <div id="loading">Loading...</div>
+      <div id="loaded" class="hidden">
+        <div id="main">
+          <div id="user-signed-in" class="hidden">
+            <div id="user-info">
+              <div id="photo-container">
+                <img id="photo">
               </div>
-              <div id='recaptcha-container'></div>
-            </li>
-            <li><a href='index.html'>Login with Facebook</a></li>
-            <li><a href='index.html'>Login with Twitter</a></li>
-            <li><a href='index.html'>Login with Google</a></li>
-          </ul>
-
+              <div id="name"></div>
+              <div id="email"></div>
+              <div id="phone"></div>
+              <div class="clearfix"></div>
+            </div>
+            <p>
+              <button id="sign-out">Sign Out</button>
+              <button id="delete-account">Delete account</button>
+            </p>
+          </div>
+          <div id="user-signed-out" class="hidden">
+            <!--<h4>You are signed out.</h4>-->
+            <fieldset class='hidden'>
+              <legend>Configuration</legend>
+              reCAPTCHA mode for Phone Auth:
+              <label for="recaptcha-normal">
+                <input type="radio" id="recaptcha-normal" name="recaptcha" value="normal">
+                Normal
+              </label>
+              <label for="recaptcha-invisible">
+                <input type="radio" id="recaptcha-invisible" name="recaptcha" value="invisible">
+                Invisible
+              </label>
+            </fieldset>
+            <p>
+              <button id="sign-in-with-redirect">Sign In with Redirect</button>
+              <button id="sign-in-with-popup">Sign In with Popup</button>
+            </p>
+            <div id="firebaseui-spa">
+              <h5>Single Page Application mode:</h5>
+              <div id="firebaseui-container"></div>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
-
-    <!-- bottom right button -->
-    <!--
-    <button class="btn-main mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-      <i class="material-icons">add</i>
-    </button>
-    -->
-
-    <!-- bottom scripts -->
-    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
-    <script src="lib/mdl/material.min.js"></script>
-
-    <!-- authen with phone -->
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
-    <script>
-      // ##### PHONE LOGIN #####
-      $('#recaptcha-container').hide();
-      $('#sms-container').hide();
-      //
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      var appVerifier = window.recaptchaVerifier;
-      $('#tel_sub').click(function(){
-        $('#recaptcha-container').show();
-        var phoneNumber = $('#tel_no').val();
-        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-          .then(function (confirmationResult) {
-            // SMS sent. Prompt user to type the code from the message, then sign the
-            // user in with confirmationResult.confirm(code).
-            window.confirmationResult = confirmationResult;
-            $('#recaptcha-container').hide();
-            $('#sms-container').show();
-          }).catch(function (error) {
-            window.recaptchaVerifier.render().then(function(widgetId) {
-              grecaptcha.reset(widgetId);
-            });
-            alert(error);
-          });
-      });
-      $('#sms_sub').click(function(){
-        var code = $('#sms_code').val();
-        confirmationResult.confirm(code).then(function (result) {
-          window.user = result.user;
-          console.log(result);
-          alert('Login done');
-        }).catch(function (error) {
-          alert(error);
-        });
-      });
-    </script>
     
+    <!-- bottom script(s) -->
+    <script type="text/javascript" src="js/login.js"></script>
   </body>
 </html>
