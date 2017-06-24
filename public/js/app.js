@@ -76,3 +76,7 @@ function get_all_friends() {
         console.log(snap.val());
     });
 }
+
+function remove_friend(friendid) {
+    //TODO:
+}
