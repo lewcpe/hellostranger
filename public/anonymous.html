@@ -50,13 +50,35 @@
     function link_email() {
         var email = document.querySelector('#login_user').value;
         var pass = document.querySelector('#login_pass').value;
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log("User Registered");
         });
         return false;
+    }
+    function query_profiles() {
+        var userId = firebase.auth().currentUser.uid;
+        var profiles_ref = firebase.database().ref("profiles/" + userId);
+        profiles_ref.once('value').then(function(snapshot) {
+            console.log("Found Profile: ");
+            console.log(snapshot.key);
+            console.log(snapshot.val());
+            snapshot.forEach(function(child) {
+                console.log(child.key + " : " + child.val());
+                get_profile_detail(child.val());
+            });
+        });
+    }
+
+    function get_profile_detail(profile_id) {
+        var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
+        profile_detail_ref.once('value').then(function(snapshot) {
+            console.log("Found Profile Object " + snapshot.key);
+            console.log(snapshot.val());
+            console.log('End of Profile Details');
+        });
     }
     </script>
   </head>
@@ -68,13 +90,15 @@
         <input id="login_pass" type="password" name="pass">
         <input type="submit" id="submit" name="submit" value="Register">
     </form>
+    <div id="profiles">No profile found</div>
+    <a onclick="query_profiles()" href="javascript:void(0);">Execute profile query</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {
             e.preventDefault();
             var email = document.querySelector('#login_user').value;
             var pass = document.querySelector('#login_pass').value;
-            firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {
+            firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;

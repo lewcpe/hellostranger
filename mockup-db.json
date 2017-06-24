@@ -1,6 +1,9 @@
 {
+    "profiles" : {
+        "njPcos8l2tPJknfZZTA32f8vfz23" : ["profile-dfjlre498580", "profile-590dfjltrkj"]
+    },
     "profile" : {
-        "njPcos8l2tPJknfZZTA32f8vfz23" : {
+        "profile-dfjlre498580" : {
             "uid" : "njPcos8l2tPJknfZZTA32f8vfz23",
             "owner" : "njPcos8l2tPJknfZZTA32f8vfz23",
             "name" : "John Doe",
@@ -10,7 +13,7 @@
             "relationship_confirmed": 0,
             "status" : 1
         },
-        "njPcos8l2tPJknfZZTA32f8vfz23" : {
+        "profile-590dfjltrkj" : {
             "uid" : "njPcos8l2tPJknfZZTA32f8vfz23",
             "owner" : "njPcos8l2tPJknfZZTA32f8vfz23",
             "name" : "Someone you met in the park",
@@ -30,6 +33,7 @@
             "relationship_confirmed": 0,
             "status" : 1
         }
+
     },
     "friends" : {
         "pid-598dkfi5" : {
