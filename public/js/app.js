@@ -12,7 +12,7 @@ function query_profiles() {
 
 function get_all_profiles() {
     var uid = firebase.auth().currentUser.uid;
-    firebase.database().ref("profile").orderByChild("owner").equalTo(uid).on('value', function(snap) {
+    return firebase.database().ref("profile").orderByChild("owner").equalTo(uid).on('value', function(snap) {
         return snap.val();
     });
 }
@@ -50,16 +50,19 @@ function add_friend(my_profileid, his_profileid) {
         if (his_detail.status == 0) {
             return false;
         }
-        var friendkey = firebase.database().ref().child('friends').push().key;
+        var myfriendkey = firebase.database().ref().child('friends').push().key;
         var updates = {};
         his_detail.owner = firebase.auth().currentUser.uid;
         his_detail.created = firebase.database.ServerValue.TIMESTAMP;
-        updates['friends/'+friendkey] = his_detail;
+        console.log("Prepared His Profile");
         get_profile_detail(my_profileid).then(function(my_detail) {
             my_detail.owner = his_detail.uid;
             my_detail.created = firebase.database.ServerValue.TIMESTAMP;
-            var friendkey = firebase.database().ref().child('friends').push().key;
-            updates['friends/'+friendkey] = my_detail;
+            var hisfriendkey = firebase.database().ref().child('friends').push().key;
+            his_detail.counter_friend_id = hisfriendkey;
+            my_detail.counter_friend_id = myfriendkey;
+            updates['friends/' + myfriendkey] = his_detail;
+            updates['friends/' + hisfriendkey] = my_detail;
             return firebase.database().ref().update(updates);
         });
     });
@@ -67,11 +70,19 @@ function add_friend(my_profileid, his_profileid) {
 
 function get_all_friends() {
     var uid = firebase.auth().currentUser.uid;
-    firebase.database().ref("friends").orderByChild('owner').equalTo(uid).on('value', function(snap) {
-        console.log(snap.val());
+    return firebase.database().ref("friends").orderByChild('owner').equalTo(uid).on('value', function(snap) {
+        return snap.val();
     });
 }
 
 function remove_friend(friendid) {
-    //TODO:
+    var uid = firebase.auth().currentUser.uid;
+    var friendref = firebase.database().ref("friends/" + friendid);
+    friendref.once('value').then(function(snap) {
+        friendobj = snap.val()
+        counterid = friendobj.counter_friend_id;
+        counterref = firebase.database().ref("friends/" + counterid);
+        counterref.remove();
+        snap.ref.remove();
+    });
 }
