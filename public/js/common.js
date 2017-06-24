@@ -25,3 +25,7 @@ function getRecaptchaMode() {
   return location.hash.indexOf('recaptcha=invisible') !== -1 ?
       'invisible' : 'normal';
 }
+
+function getUID(){
+  return firebase.auth().currentUser.uid;
+}
