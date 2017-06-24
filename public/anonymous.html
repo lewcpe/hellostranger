@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-storage.js"></script>
+    <script src="/js/app.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -58,27 +59,13 @@
         });
         return false;
     }
-    function query_profiles() {
-        var userId = firebase.auth().currentUser.uid;
-        var profiles_ref = firebase.database().ref("profiles/" + userId);
-        profiles_ref.once('value').then(function(snapshot) {
-            console.log("Found Profile: ");
-            console.log(snapshot.key);
-            console.log(snapshot.val());
-            snapshot.forEach(function(child) {
-                console.log(child.key + " : " + child.val());
-                get_profile_detail(child.val());
-            });
-        });
+
+    function __create_profile() {
+        create_new_profile("Test Me", "Not the one you know", null);
     }
 
-    function get_profile_detail(profile_id) {
-        var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
-        profile_detail_ref.once('value').then(function(snapshot) {
-            console.log("Found Profile Object " + snapshot.key);
-            console.log(snapshot.val());
-            console.log('End of Profile Details');
-        });
+    function __add_friend() {
+        add_friend("profile-590dfjltrkj", "pid-295sk32");
     }
     </script>
   </head>
@@ -91,7 +78,9 @@
         <input type="submit" id="submit" name="submit" value="Register">
     </form>
     <div id="profiles">No profile found</div>
-    <a onclick="query_profiles()" href="javascript:void(0);">Execute profile query</a>
+    <a onclick="get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
+    <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
+    <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {

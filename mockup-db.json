@@ -1,6 +1,8 @@
 {
     "profiles" : {
-        "njPcos8l2tPJknfZZTA32f8vfz23" : ["profile-dfjlre498580", "profile-590dfjltrkj"]
+        "njPcos8l2tPJknfZZTA32f8vfz23" : {
+            "0" : "profile-dfjlre498580", 
+            "1" : "profile-590dfjltrkj"
     },
     "profile" : {
         "profile-dfjlre498580" : {
