@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Hello Strager is a social network designed for privacy-concerned people. It will make sure anything you post never spread wider than those you intended to.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Hello Stranger</title>
-
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-app.js"></script>
@@ -14,43 +13,21 @@
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase-storage.js"></script>
-
     <!-- firebaseUI -->
     <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
-
     <!-- app scripts -->
     <script src="js/common.js"></script>
     <script src="js/config.js"></script>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <!-- stylesheets -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="lib/materialize/css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/login.css"  media="screen,projection"/>
-
+    <link type="text/css" rel="stylesheet" href="css/login.css" />
   </head>
   <body>
 
-    <nav class="teal" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Logo</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#">Action A</a></li>
-          <li><a href="#">Action B</a></li>
-        </ul>
-        <ul id="nav-mobile" class="side-nav">
-          <li><a href="#">Action A</a></li>
-          <li><a href="#">Action B</a></li>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-
-    <div class="container">
-
+   <div id="container">
+       <h1>
+         <img align='top' src='favicon-32x32.png'>
+         Hello Stranger
+       </h1>
       <div id="loading">Loading...</div>
       <div id="loaded" class="hidden">
         <div id="main">
@@ -88,19 +65,15 @@
               <button id="sign-in-with-popup">Sign In with Popup</button>
             </p>
             <div id="firebaseui-spa">
-              <!--<h5>Login</h5>-->
+              <h5>Single Page Application mode:</h5>
               <div id="firebaseui-container"></div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="lib/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
+    
+    <!-- bottom script(s) -->
     <script type="text/javascript" src="js/login.js"></script>
   </body>
 </html>
