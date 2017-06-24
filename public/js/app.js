@@ -4,7 +4,7 @@
 
 function get_all_profiles() {
     var uid = firebase.auth().currentUser.uid;
-    return firebase.database().ref("profile").orderByChild("owner").equalTo(uid).on('value', function(snap) {
+    return firebase.database().ref("profile").orderByChild("owner").equalTo(uid).once('value', function(snap) {
         return snap.val();
     });
 }
@@ -85,5 +85,19 @@ function remove_friend(friendid) {
 //Post Management
 
 function create_new_post(message, pic, allowed_friends) {
-    //TODO:
+    var uid = firebase.auth().currentUser.uid;
+    var postdata = {
+        owner: uid,
+        message: message,
+        pic: pic,
+        created: firebase.database.ServerValue.TIMESTAMP,
+        allowed: null
+    }
+    var postkey = firebase.database().ref().child('post').push().key;
+    var updates = {};
+    updates['post/' + postkey] = postdata;
+    firebase.database().ref().update(updates);
+    for (let fuid of allowed_friends) {
+        let allowid = firebase.database();
+    }
 }

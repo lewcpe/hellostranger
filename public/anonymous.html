@@ -60,6 +60,12 @@
         return false;
     }
 
+    function __get_all_profiles() {
+        get_all_profiles().then(function(snap) {
+            console.log(snap.val());
+        });
+    }
+
     function __create_profile() {
         create_new_profile("Test Me", "Not the one you know", null);
     }
@@ -78,7 +84,7 @@
         <input type="submit" id="submit" name="submit" value="Register">
     </form>
     <div id="profiles">No profile found</div>
-    <a onclick="get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
+    <a onclick="__get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
     <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
     <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <a onclick="get_all_friends()" href="javascript:void(0);">Get All Friends</a>
