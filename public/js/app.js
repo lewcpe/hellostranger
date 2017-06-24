@@ -11,14 +11,9 @@ function query_profiles() {
 }
 
 function get_all_profiles() {
-    query_profiles().then(function(profileid_list) {
-        for (var key in profileid_list) {
-            var profileid = profileid_list[key];
-            console.log("Key = " + key);
-            console.log("Profile ID = " + profileid);
-            var profile_detail = get_profile_detail(profileid);
-            console.log(profile_detail);
-        }
+    var uid = firebase.auth().currentUser.uid;
+    firebase.database().ref("profile").orderByChild("owner").equalTo(uid).on('value', function(snap) {
+        return snap.val();
     });
 }
 
