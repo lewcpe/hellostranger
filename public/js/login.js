@@ -99,8 +99,16 @@ var signInWithPopup = function() {
  * @param {!firebase.User} user
  */
 var handleSignedInUser = function(user) {
-  // TODO if profile existed, go to feed
-  location.href = 'add_profile.html';
+  get_all_profiles().then(function(snap){
+    if(Object.keys(snap.val()).length > 0){
+      // just login
+      location.href = 'index.html';
+    }
+    else {
+      // just register
+      location.href = 'add_profile.html';
+    }
+  })
 };
 
 
