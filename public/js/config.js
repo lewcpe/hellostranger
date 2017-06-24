@@ -29,6 +29,7 @@ if ('serviceWorker' in navigator) {
         })
         .then((token) => {
             console.log('TOKEN RECEIVED: ' + token);
+            //TODO:send token to server
             // Setup token
             // Simple ajax call to send user token to server for saving
             // $.ajax({
