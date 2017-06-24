@@ -46,8 +46,11 @@
             "message" : "Hello Stranger",
             "pic" : "https://xxx.firebaseapp.com/post-4958fk50.jpg",
             "created" : 1498123415,
-            "allowed" : ["uid-3496ld50"]   
-        }
+            "allowed" : {
+                "njPcos8l2tPJknfZZTA32f8vfz23" : null
+            }
+        },
+        "post-4850dfji59" : {}
     },
     "comments" : {
         "c1" : {

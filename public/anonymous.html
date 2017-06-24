@@ -73,6 +73,10 @@
     function __add_friend() {
         add_friend("profile-590dfjltrkj", "pid-295sk32");
     }
+
+    function __create_post() {
+        create_new_post("Haha", null, ["profile-590dfjltrk"]);
+    }
     </script>
   </head>
   <body>
@@ -88,6 +92,7 @@
     <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
     <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <a onclick="get_all_friends()" href="javascript:void(0);">Get All Friends</a>
+    <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {

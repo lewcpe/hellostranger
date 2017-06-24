@@ -4,9 +4,7 @@
 
 function get_all_profiles() {
     var uid = firebase.auth().currentUser.uid;
-    return firebase.database().ref("profile").orderByChild("owner").equalTo(uid).once('value', function(snap) {
-        return snap.val();
-    });
+    return firebase.database().ref("profile").orderByChild("owner").equalTo(uid).once('value');
 }
 
 function get_profile_detail(profile_id) {
@@ -97,7 +95,9 @@ function create_new_post(message, pic, allowed_friends) {
     var updates = {};
     updates['post/' + postkey] = postdata;
     firebase.database().ref().update(updates);
+    let allowref = firebase.database().ref("post/" + postkey + "/allowed");
     for (let fuid of allowed_friends) {
-        let allowid = firebase.database();
+        console.log("Create Allowd for " + fuid);
+        allowref.child(fuid).set(1);
     }
 }
