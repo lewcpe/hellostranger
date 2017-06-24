@@ -51,3 +51,8 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+
+//Handle message
+messaging.onMessage((payload) => {
+    console.log("RECIVE: ", payload);
+});

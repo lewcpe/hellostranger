@@ -24,6 +24,7 @@ messaging.setBackgroundMessageHandler((payload) => {
       {action: 'confirm', title: 'Confirm'},
       {action: 'cancel', title: 'Ignore'}
     ],
+    data: {url: data.confirm}
     //"click_action" : "https://wwww.google.com",
     // For additional data to be sent to event listeners, needs to be set in this data {}
     //data: {confirm: data.confirm, decline: data.decline}
@@ -31,6 +32,17 @@ messaging.setBackgroundMessageHandler((payload) => {
 
   return self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+self.addEventListener('notificationclick', (event) => {
+  console.log("Action=", event.action);
+  console.log("Notification=", event.notification);
+  event.notification.close();
+  if (event.action == 'confirm') {
+    //TODO: clients.openWindow("eventURL");
+    console.log('Click confirm',event.notification.data);
+  }
+  
+}, false);
 
 // Callback fired if Instance ID token is updated.
 // messaging.onTokenRefresh(function() {
@@ -44,12 +56,3 @@ messaging.setBackgroundMessageHandler((payload) => {
 //   });
 // });
 
-self.addEventListener('notificationclick', (event) => {
-  console.log(event.action);
-  event.notification.close();
-  if (event.action == 'confirm') {
-    //TODO: send to server
-    console.log('Click confirm');
-  }
-  
-}, false);
