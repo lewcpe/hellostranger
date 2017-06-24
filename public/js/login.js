@@ -100,7 +100,7 @@ var signInWithPopup = function() {
  */
 var handleSignedInUser = function(user) {
   get_all_profiles().then(function(snap){
-    if(Object.keys(snap.val()).length > 0){
+    if(snap.val()){
       // just login
       location.href = 'index.html';
     }
