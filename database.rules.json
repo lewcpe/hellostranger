@@ -1,6 +1,12 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "profile" : {
+      ".indexOn" : ["owner"]
+    },
+    "friends" : {
+      ".indexOn" : ["owner", "uid"]
+    }
   }
 }
