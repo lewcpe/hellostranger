@@ -101,3 +101,8 @@ function create_new_post(message, pic, allowed_friends) {
         allowref.child(fuid).set(1);
     }
 }
+
+function get_post_from_user(cuid) {
+    let uid = cuid || firebase.auth().currentUser.uid;
+    return firebase.database().ref("post").orderByChild("owner").equalTo(uid).once('value');
+}

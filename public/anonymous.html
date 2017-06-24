@@ -77,6 +77,17 @@
     function __create_post() {
         create_new_post("Haha", null, ["profile-590dfjltrk"]);
     }
+
+    function __get_post() {
+        get_post_from_user("uid-18r4909").then(function(snap) {
+            console.log("Get post from mock user");
+            console.log(snap.val());
+        });
+        get_post_from_user("njPcos8l2tPJknfZZTA32f8vfz23").then(function(snap) {
+            console.log("Get Post from real user");
+            console.log(snap.val());
+        });
+    }
     </script>
   </head>
   <body>
@@ -93,6 +104,7 @@
     <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <a onclick="get_all_friends()" href="javascript:void(0);">Get All Friends</a>
     <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
+    <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {

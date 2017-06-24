@@ -47,10 +47,9 @@
             "pic" : "https://xxx.firebaseapp.com/post-4958fk50.jpg",
             "created" : 1498123415,
             "allowed" : {
-                "njPcos8l2tPJknfZZTA32f8vfz23" : null
+                "njPcos8l2tPJknfZZTA32f8vfz23" : 1
             }
-        },
-        "post-4850dfji59" : {}
+        }
     },
     "comments" : {
         "c1" : {
