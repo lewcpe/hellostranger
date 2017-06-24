@@ -22,13 +22,6 @@ function get_all_profiles() {
     });
 }
 
-function get_profile_list_promise(uid) {
-    var uid = uid || firebase.auth().currentUser.uid;
-    var profiles_ref = firebase.database().ref("profiles/" + userId);
-    //TODO: Return promise for the list of  profiles
-    return null;
-}
-
 function get_profile_detail(profile_id) {
     var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
     return profile_detail_ref.once('value').then(function(snapshot) {
