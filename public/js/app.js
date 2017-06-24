@@ -35,6 +35,7 @@ function create_new_profile(displayname, bio, pic) {
     return firebase.database().ref().update(updates);
 }
 
+//Add Friend use "PROFILE ID" not "USER ID"
 function add_friend(my_profileid, his_profileid) {
     get_profile_detail(his_profileid).then(function(his_detail) {
         if (his_detail.status == 0) {
@@ -131,5 +132,28 @@ function get_timeline() {
             retlist.push(retpromise);
         }
         return Promise.all(retlist);
+    });
+}
+
+// Comments API
+
+function create_new_comment(message, postid) {
+    var uid = firebase.auth().currentUser.uid;
+    var postdata = {
+        owner: uid,
+        message: message,
+        created: firebase.database.ServerValue.TIMESTAMP,
+        postid: postid
+    };
+    var commentkey = firebase.database().ref().child('comments').push().key;
+    var updates = {};
+    updates['comments/' + commentkey] = postdata;
+    return firebase.database().ref().update(updates);
+}
+
+function get_comment_for_post(postid) {
+    firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value').then(function(snap) {
+        console.log("Got comment");
+        console.log(snap.val());
     });
 }
