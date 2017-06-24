@@ -84,6 +84,9 @@ function remove_friend(friendid) {
 
 function create_new_post(message, pic, allowed_friends) {
     var uid = firebase.auth().currentUser.uid;
+    if (allowed_friends.indexOf(uid) == -1) {
+        allowed_friends.push(uid);
+    }
     var postdata = {
         owner: uid,
         message: message,
@@ -112,5 +115,21 @@ function get_post_from_user(cuid) {
 function get_timeline() {
     let uid = firebase.auth().currentUser.uid;
     let timelineref = firebase.database().ref("timeline/" + uid)
-    return timelineref.once('value');
+    console.log("Get Timeline");
+    return timelineref.once('value').then(function(snap) {
+        console.log("List timeline");
+        postdict = snap.val();
+        console.log(postdict);
+        let retlist = [];
+        for (let postkey in postdict) {
+            console.log("Key = " + postkey);
+            let postref = firebase.database().ref("post/" + postkey);
+            retpromise = postref.once('value').then(function(postsnap) {
+                console.log("Post snap");
+                return postsnap.val();
+            });
+            retlist.push(retpromise);
+        }
+        return Promise.all(retlist);
+    });
 }
