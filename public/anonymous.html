@@ -72,6 +72,13 @@
         });
     }
 
+    function get_profile_list_promise(uid) {
+        var uid = uid || firebase.auth().currentUser.uid;
+        var profiles_ref = firebase.database().ref("profiles/" + userId);
+        //TODO: Return promise for the list of  profiles
+        return null;
+    }
+
     function get_profile_detail(profile_id) {
         var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
         profile_detail_ref.once('value').then(function(snapshot) {
@@ -79,6 +86,30 @@
             console.log(snapshot.val());
             console.log('End of Profile Details');
         });
+    }
+
+    function create_new_profile(displayname, bio, pic) {
+        var uid = firebase.auth().currentUser.uid;
+        var postdata = {
+            uid: uid,
+            owner: uid,
+            name: displayname,
+            bio: bio,
+            pic: pic,
+            created: firebase.database.ServerValue.TIMESTAMP,
+            relationship_confirmed: 0,
+            status: 1
+        };
+        var profilekey = firebase.database().ref().child('profile').push().key;
+        var profilelistkey = firebase.database().ref("profiles/" + uid).push().key;
+        var updates = {};
+        updates['profile/' + profilekey] = postdata;
+        updates['profiles/' + uid + "/" + profilelistkey] = profilekey;
+        return firebase.database().ref().update(updates);
+    }
+
+    function __create_profile() {
+        create_new_profile("Test Me", "Not the one you know", null);
     }
     </script>
   </head>
@@ -92,6 +123,7 @@
     </form>
     <div id="profiles">No profile found</div>
     <a onclick="query_profiles()" href="javascript:void(0);">Execute profile query</a>
+    <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {
