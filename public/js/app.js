@@ -1,14 +1,6 @@
 //Business Logic Functions
 
-function query_profiles() {
-    var userId = firebase.auth().currentUser.uid;
-    var profiles_ref = firebase.database().ref("profiles/" + userId);
-    return profiles_ref.once('value').then(function(snapshot) {
-        console.log("Found Profile: ");
-        console.log(snapshot.key);
-        return snapshot.val();
-    });
-}
+//Friends Management
 
 function get_all_profiles() {
     var uid = firebase.auth().currentUser.uid;
@@ -80,9 +72,18 @@ function remove_friend(friendid) {
     var friendref = firebase.database().ref("friends/" + friendid);
     friendref.once('value').then(function(snap) {
         friendobj = snap.val()
+        if (friendobj.owner != uid) {
+            return false;
+        }
         counterid = friendobj.counter_friend_id;
         counterref = firebase.database().ref("friends/" + counterid);
         counterref.remove();
         snap.ref.remove();
     });
+}
+
+//Post Management
+
+function create_new_post(message, pic, allowed_friends) {
+    //TODO:
 }
