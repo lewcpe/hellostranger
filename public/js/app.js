@@ -61,7 +61,7 @@ function add_friend(my_profileid, his_profileid) {
 
 function get_all_friends() {
     var uid = firebase.auth().currentUser.uid;
-    return firebase.database().ref("friends").orderByChild('owner').equalTo(uid).on('value', function(snap) {
+    return firebase.database().ref("friends").orderByChild('owner').equalTo(uid).once('value').then(function(snap) {
         return snap.val();
     });
 }
@@ -152,8 +152,5 @@ function create_new_comment(message, postid) {
 }
 
 function get_comment_for_post(postid) {
-    firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value').then(function(snap) {
-        console.log("Got comment");
-        console.log(snap.val());
-    });
+    return firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value');
 }
