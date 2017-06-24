@@ -75,7 +75,7 @@
             console.log("Get Profile");
             console.log(snap);
         });
-        add_friend("-KnP3Rp8i_3s_8gREUnU", "-KnP89RdLZpjkO8n8c4M");
+        add_friend("-KnP89RdLZpjkO8n8c4M","-KnQIDMkooOqMMe7E2nq");
     }
 
     function __create_post() {
@@ -107,6 +107,10 @@
 
     function __get_all_friends() {
         get_all_friends().then(function(snap) {
+            console.log(snap);
+        });
+        get_all_friends("ykSAhflCaWMUYySh5JzbMCHxj553").then(function(snap) {
+            console.log("Yuwat Friend");
             console.log(snap);
         });
     }

@@ -36,14 +36,15 @@ function create_new_profile(displayname, bio, pic) {
 }
 
 //Add Friend use "PROFILE ID" not "USER ID"
-function add_friend(my_profileid, his_profileid) {
+function add_friend(my_profileid, his_profileid, cuid) {
+    cuid = cuid || firebase.auth().currentUser.uid;
     get_profile_detail(his_profileid).then(function(his_detail) {
         if (his_detail.status == 0) {
             return false;
         }
         var myfriendkey = firebase.database().ref().child('friends').push().key;
         var updates = {};
-        his_detail.owner = firebase.auth().currentUser.uid;
+        his_detail.owner = cuid
         his_detail.created = firebase.database.ServerValue.TIMESTAMP;
         console.log("Prepared His Profile");
         get_profile_detail(my_profileid).then(function(my_detail) {
@@ -59,8 +60,8 @@ function add_friend(my_profileid, his_profileid) {
     });
 }
 
-function get_all_friends() {
-    var uid = firebase.auth().currentUser.uid;
+function get_all_friends(cuid) {
+    var uid = cuid || firebase.auth().currentUser.uid;
     return firebase.database().ref("friends").orderByChild('owner').equalTo(uid).once('value').then(function(snap) {
         return snap.val();
     });
