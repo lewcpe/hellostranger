@@ -88,6 +88,14 @@
             console.log(snap.val());
         });
     }
+    function __get_timeline() {
+        get_timeline().then(function(snap) {
+            console.log("Get TL Outside");
+            for(let i in snap) {
+                console.log(snap[i]);
+            }
+        });
+    }
     </script>
   </head>
   <body>
@@ -105,6 +113,7 @@
     <a onclick="get_all_friends()" href="javascript:void(0);">Get All Friends</a>
     <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
     <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
+    <a onclick="__get_timeline()" href="javascript:void(0);">Get Timeline</a>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {

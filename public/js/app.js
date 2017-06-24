@@ -84,6 +84,9 @@ function remove_friend(friendid) {
 
 function create_new_post(message, pic, allowed_friends) {
     var uid = firebase.auth().currentUser.uid;
+    if (allowed_friends.indexOf(uid) == -1) {
+        allowed_friends.push(uid);
+    }
     var postdata = {
         owner: uid,
         message: message,
@@ -99,10 +102,34 @@ function create_new_post(message, pic, allowed_friends) {
     for (let fuid of allowed_friends) {
         console.log("Create Allowd for " + fuid);
         allowref.child(fuid).set(1);
+        let timelineref = firebase.database().ref("timeline/" + fuid)
+        timelineref.child(postkey).set(firebase.database.ServerValue.TIMESTAMP);
     }
 }
 
 function get_post_from_user(cuid) {
     let uid = cuid || firebase.auth().currentUser.uid;
     return firebase.database().ref("post").orderByChild("owner").equalTo(uid).once('value');
+}
+
+function get_timeline() {
+    let uid = firebase.auth().currentUser.uid;
+    let timelineref = firebase.database().ref("timeline/" + uid)
+    console.log("Get Timeline");
+    return timelineref.once('value').then(function(snap) {
+        console.log("List timeline");
+        postdict = snap.val();
+        console.log(postdict);
+        let retlist = [];
+        for (let postkey in postdict) {
+            console.log("Key = " + postkey);
+            let postref = firebase.database().ref("post/" + postkey);
+            retpromise = postref.once('value').then(function(postsnap) {
+                console.log("Post snap");
+                return postsnap.val();
+            });
+            retlist.push(retpromise);
+        }
+        return Promise.all(retlist);
+    });
 }
