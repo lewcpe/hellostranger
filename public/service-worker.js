@@ -58,4 +58,5 @@ self.addEventListener('notificationclick', (event) => {
 toolbox.options.debug = true;
 
 toolbox.router.get("manifest.json", toolbox.networkFirst)
-//toolbox.router.get("index.html", toolbox.networkFirst)
+toolbox.router.get("index.html", toolbox.networkFirst)
+toolbox.router.get("login.html", toolbox.networkFirst)
