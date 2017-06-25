@@ -25,20 +25,21 @@ admin.initializeApp(functions.config().firebase);
 exports.sendNotification = functions.database.ref('/friends/{friendUid}').onWrite(event => {
     const friendUid = event.params.friendUid;
     console.log('friendUid',friendUid);
-
-    //const tokens = "cSXgBdmWR_E:APA91bHHhgackUaUKAdGYkYJ8V4x6pkWFC8DFwPEyXMlU3P7xl-pF8hCNajstPu6q5P4zTRvG_rB1fpOHiZ55OETgDsbLG1ambU0dixAQXveq-0JkUCe49nrC4Q7X7QeCY_vnlV-S0-I";
-    const payload = {
-      notification: {
-        title: "New friend request",
-        body: friendUid + " want to join you?",
-        confirm: "http://test"
-      }
-    };
-
-    var tokenref = firebase.database().ref("token/" + friendUid).once('value');
-    return tokenref.then(function(snap) {
-      var token = snap.val();
-      console.log('Send message to device with token = ' + token);
-      return admin.messaging().sendToDevice(token, payload);
+    var friendref = admin.database().ref("friends/" + friendUid).once('value');
+    return friendref.then(function(snap) {
+      var friendobj = snap.val();
+      var owner_uid = friendobj.owner;
+      var tokenref = admin.database().ref("token/" + owner_uid).once('value');
+      return tokenref.then(function(snap) {
+        var token = snap.val();
+        const payload = {
+          notification: {
+            title: "New friend added",
+            body: friendobj.name + " just added you as a friend, click to see his/her profile"
+          }
+        };
+        console.log('Send message to device with token = ' + token);
+        return admin.messaging().sendToDevice(token, payload);
+      });
     });
 });
