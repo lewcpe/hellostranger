@@ -25,6 +25,8 @@
     <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <script src="lib/clipboard/clipboard.min.js"></script>
+
     <!-- app -->
     <link type="text/css" rel="stylesheet" href="css/app.css"  media="screen,projection"/>
     <script type="text/javascript" src="js/common.js"></script>
@@ -120,7 +122,10 @@
     <div id="qr-modal" class="modal">
       <div class="modal-content">
         <div class='qr'></div>
-        <div class='url center-align'></div>
+        <div>
+          <div class='url center-align' style="cursor: pointer"></div>
+          <div class='url-btn center-align' style="cursor: pointer"></div>
+        </div>
       </div>
     </div>
 

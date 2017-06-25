@@ -78,7 +78,13 @@ $('table').on('click', 'td.qr', function(){
       width: 200,
       height: 200,
   });
-  $('#qr-modal .url').html(`or <a href='${url}'>link</a>`);
+  $('#qr-modal .url').html(`or <a id='profileUrl' href='${url}'>link</a>`);
+  $('#qr-modal .url-btn').html(`or <button class="btn" data-clipboard-text='${url}'>
+              Copy link
+          </button>`).click(() => {
+            $('#qr-modal').modal('close');
+          });
+  new Clipboard('.btn');
   $('#qr-modal').modal('open');
 });
 $('.red.new').click(function(){
