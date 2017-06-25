@@ -71,7 +71,7 @@ $('table').on('click', 'td.mod', function(){
 });
 $('table').on('click', 'td.qr', function(){
   var pid = $(this).attr('pid');
-  var url = `${location.origin}/login.html#token=${btoa(pid)}`;
+  var url = `${location.origin}/login.html#${btoa(pid)}`;
   $('#qr-modal .qr').html('');
   var qrcode = new QRCode($('#qr-modal .qr')[0], {
       text: url,
