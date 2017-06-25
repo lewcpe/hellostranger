@@ -63,7 +63,7 @@ function remove_profile(profile_id) {
 //Add Friend use "PROFILE ID" not "USER ID"
 function add_friend(my_profileid, his_profileid, cuid) {
     cuid = cuid || firebase.auth().currentUser.uid;
-    get_profile_detail(his_profileid).then(function(his_detail) {
+    return get_profile_detail(his_profileid).then(function(his_detail) {
         if (his_detail.status == 0) {
             return false;
         }
@@ -72,7 +72,7 @@ function add_friend(my_profileid, his_profileid, cuid) {
         his_detail.owner = cuid
         his_detail.created = firebase.database.ServerValue.TIMESTAMP;
         console.log("Prepared His Profile");
-        get_profile_detail(my_profileid).then(function(my_detail) {
+        return get_profile_detail(my_profileid).then(function(my_detail) {
             my_detail.owner = his_detail.uid;
             my_detail.created = firebase.database.ServerValue.TIMESTAMP;
             var hisfriendkey = firebase.database().ref().child('friends').push().key;
