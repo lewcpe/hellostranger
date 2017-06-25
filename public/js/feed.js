@@ -1,5 +1,10 @@
 var REQUEST_PID = null;
 
+var ALL_PROFILES = {};
+var ALL_FRIENDS  = {};
+var UID_NAMES    = {};
+var PID_NAMES    = {};
+
 // bind post item
 $('.new.red.btn-floating').click(function(){
   $('#post-modal #msg').val('');
@@ -7,19 +12,19 @@ $('.new.red.btn-floating').click(function(){
 
   if($('.allow-friends .progress').length == 1){
     // query friend list at firsttime
-    get_all_friends().then(function(friends){
-      $('#post-modal .allow-friends').html('');
-      if(friends){
-        for(var uid in friends){
-          $('#post-modal .allow-friends').append(`
-            <p>
-              <input type="checkbox" id="${uid}" checked="checked" value="${uid}" />
-              <label for="${uid}">${friends[uid].name}</label>
-            </p>
-          `);
-        }
+    $('#post-modal .allow-friends').html('');
+    if(ALL_FRIENDS){
+      for(var pid in ALL_FRIENDS){
+        var f = ALL_FRIENDS[pid];
+        var uid = f.uid;
+        $('#post-modal .allow-friends').append(`
+          <p>
+            <input type="checkbox" id="${uid}" checked="checked" value="${uid}" />
+            <label for="${uid}">${f.name}</label>
+          </p>
+        `);
       }
-    });
+    }
   }
   else {
     // checked all friends by default
@@ -76,19 +81,20 @@ function query_feed(){
     $('.feed').html('');
     $(items.reverse()).each(function(i, r){
       //
-      console.log(r);
+      // console.log(r);
       //
-      var username = r.owner;
+      var username = UID_NAMES[r.owner] || 'Unknown';
       var msg = r.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
       var d = new Date(r.created);
       var ds = d.toLocaleString();
       var allowed = '';
-      for(var k in r.allowed){
-       allowed += `<img title='${k}' src='android-chrome-192x192.png'>`;
+      for(var pid in r.allowed){
+        var name = PID_NAMES[pid] || 'Unknown';
+        allowed += `<img title='${name}' src='android-chrome-192x192.png'>`;
       }
       //
       $('.feed').append(`
-        <div class="col m12 l6">
+        <div class="col s12 l6">
           <div class="card">
             <div class="card-content">
               <div class='poster'>
@@ -118,16 +124,32 @@ function query_feed(){
 // when firebase auth ready
 firebase.auth().onAuthStateChanged(function(user){
 
-  // loading feed
-  query_feed();
-
-  // update accept profile list in friend request modal
+  // query profiles, friends data first
+  // map into pid <-> name, uid <-> name hash
   get_all_profiles().then(function(snap){
-    var profiles = snap.val();
-    if(profiles){
+    ALL_PROFILES = snap.val();
+    return get_all_friends().then(function(friends){
+      return friends;
+    });
+  }).then(function(friends){
+    ALL_FRIENDS = friends;
+  }).then(function(){
+    $([ ALL_PROFILES, ALL_FRIENDS ]).each(function(i, src){
+      for(var pid in src){
+        var p = src[pid];
+        UID_NAMES[p.uid] = p.name;
+        PID_NAMES[pid]   = p.name;
+      }
+    });
+  }).then(function(){
+    // loading feed
+    query_feed();
+
+    // update accept profile list in friend request modal
+    if(ALL_PROFILES){
       $('#request-friend-modal .accept-profile').html('');
-      for(var pid in profiles){
-        var profile = profiles[pid];
+      for(var pid in ALL_PROFILES){
+        var profile = ALL_PROFILES[pid];
         $('#request-friend-modal .accept-profile').append(`
           <p>
             <input name="accept_profile" type="radio" id="${pid}" />
