@@ -35,6 +35,19 @@ function create_new_profile(displayname, bio, pic) {
     return firebase.database().ref().update(updates);
 }
 
+function update_profile(profile_id, displayname, bio, pic) {
+    var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
+    profile_detail_ref.once('value').then(function(snap) {
+        var profile = snap.val()
+        profile.name = displayname;
+        profile.bio = bio;
+        profile.pic = pic;
+        var updates = {}
+        updates['profile/' + profile_id] = profile;
+        return firebase.database().ref().update(updates);
+    });
+}
+
 //Add Friend use "PROFILE ID" not "USER ID"
 function add_friend(my_profileid, his_profileid, cuid) {
     cuid = cuid || firebase.auth().currentUser.uid;
@@ -153,5 +166,9 @@ function create_new_comment(message, postid) {
 }
 
 function get_comment_for_post(postid) {
-    return firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value');
+    return firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value')
+}
+
+function get_comment_for_post_with_uid(postid, cuid) {
+
 }
