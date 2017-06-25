@@ -26,7 +26,7 @@ exports.sendNotification = functions.database.ref('/friends/{friendUid}').onWrit
     const friendUid = event.params.friendUid;
     console.log('friendUid',friendUid);
 
-    const tokens = "cSXgBdmWR_E:APA91bHHhgackUaUKAdGYkYJ8V4x6pkWFC8DFwPEyXMlU3P7xl-pF8hCNajstPu6q5P4zTRvG_rB1fpOHiZ55OETgDsbLG1ambU0dixAQXveq-0JkUCe49nrC4Q7X7QeCY_vnlV-S0-I";
+    //const tokens = "cSXgBdmWR_E:APA91bHHhgackUaUKAdGYkYJ8V4x6pkWFC8DFwPEyXMlU3P7xl-pF8hCNajstPu6q5P4zTRvG_rB1fpOHiZ55OETgDsbLG1ambU0dixAQXveq-0JkUCe49nrC4Q7X7QeCY_vnlV-S0-I";
     const payload = {
       notification: {
         title: "New friend request",
@@ -35,6 +35,10 @@ exports.sendNotification = functions.database.ref('/friends/{friendUid}').onWrit
       }
     };
 
-    console.log('Send message to device');
-    admin.messaging().sendToDevice(tokens, payload);
+    var tokenref = firebase.database().ref("token/" + friendUid).once('value');
+    return tokenref.then(function(snap) {
+      var token = snap.val();
+      console.log('Send message to device with token = ' + token);
+      return admin.messaging().sendToDevice(token, payload);
+    });
 });
