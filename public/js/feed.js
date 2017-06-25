@@ -2,6 +2,7 @@ var REQUEST_PID = null;
 
 // bind post item
 $('.new.red.btn-floating').click(function(){
+  $('#post-modal #msg').val('');
   $('#post-modal').modal('open');
 
   if($('.allow-friends .progress').length == 1){
@@ -41,17 +42,84 @@ $('#request-friend-modal #reject').click(function(){
 
 // submit post item
 $('#post-modal #submit').click(function(){
+  var msg = $('#post-modal #msg').val().trim();
+  var pic = '<3'; // TODO
   var uids = $.map($('.allow-friends input:checked'), function(r, i){
     return r.value;
   });
-
-  // TODO collect modal data -> post new
-  alert(uids);
-
+  if(msg){ // msg must not blank
+    create_new_post(msg, pic, uids);
+    /*
+     * TODO create_new_post not return promise yet
+     *      I think this process should take about 1 sec.. :d
+     **/
+    $('#post-modal').modal('close');
+    play_feed_loading();
+    setTimeout(function(){
+      query_feed();
+    }, 1000);
+  }
 });
+
+// loading animation
+function play_feed_loading(){
+  $('.feed').html(`
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+  `);
+}
+
+function query_feed(){
+  play_feed_loading();
+  get_timeline().then(function(items){
+    $('.feed').html('');
+    $(items.reverse()).each(function(i, r){
+      //
+      console.log(r);
+      //
+      var username = r.owner;
+      var msg = r.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+      var d = new Date(r.created);
+      var ds = d.toLocaleString();
+      var allowed = '';
+      for(var k in r.allowed){
+       allowed += `<img title='${k}' src='android-chrome-192x192.png'>`;
+      }
+      //
+      $('.feed').append(`
+        <div class="col m12 l6">
+          <div class="card">
+            <div class="card-content">
+              <div class='poster'>
+                <img class='left avatar' src='android-chrome-192x192.png'>
+                <div class='name'>${username}</div>
+                <div>${ds}</div>
+                <div class='clear'></div>
+              </div>
+              <p>${msg}</p>
+            </div>
+            <div class="card-image hide">
+              <img src="img/sample-1.jpg">
+            </div>
+            <div class="card-action friend">
+              ${allowed}
+            </div>
+            <div class="card-action hide">
+              comment..
+            </div>
+          </div>
+        </div>
+      `);
+    });
+  });
+}
 
 // when firebase auth ready
 firebase.auth().onAuthStateChanged(function(user){
+
+  // loading feed
+  query_feed();
 
   // update accept profile list in friend request modal
   get_all_profiles().then(function(snap){
