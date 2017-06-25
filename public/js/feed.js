@@ -88,9 +88,14 @@ function query_feed(){
       var d = new Date(r.created);
       var ds = d.toLocaleString();
       var allowed = '';
-      for(var pid in r.allowed){
-        var name = PID_NAMES[pid] || 'Unknown';
-        allowed += `<img title='${name}' src='android-chrome-192x192.png'>`;
+      for(var uid in r.allowed){
+        var name = UID_NAMES[uid];
+        if(name){
+          allowed += `<img onclick="alert('${name}')" title='${name}' src='android-chrome-192x192.png'>`;
+        }
+        else {
+          allowed += `<img title='Unknown' src='android-chrome-192x192.png'>`;
+        }
       }
       //
       $('.feed').append(`
