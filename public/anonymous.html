@@ -70,6 +70,10 @@
         create_new_profile("Test Me", "Not the one you know", null);
     }
 
+    function __update_profile() {
+        update_profile("profile-dfjlre498580", "John New", "Just Edit", null);
+    }
+
     function __add_friend() {
         get_profile_detail("-KnP3Rp8i_3s_8gREUnU").then(function(snap) {
             console.log("Get Profile");
@@ -101,18 +105,24 @@
         });
     }
 
-    function __create_comment() {
-        create_new_comment("Thinking about it", "post-3509ckf395");
-    }
-
     function __get_all_friends() {
         get_all_friends().then(function(snap) {
+            console.log("My own friend");
             console.log(snap);
         });
         get_all_friends("ykSAhflCaWMUYySh5JzbMCHxj553").then(function(snap) {
             console.log("Yuwat Friend");
             console.log(snap);
         });
+    }
+    function __create_comment() {
+        create_new_comment("Thinking about it", "post-3509ckf395");
+    }
+    function __get_comment_for_post() {
+        get_comment_for_post("post-3509ckf395").then(function(snap) {
+            console.log("Get Comment");
+            console.log(snap.val());
+        })
     }
     </script>
   </head>
@@ -127,6 +137,7 @@
     <div id="profiles">No profile found</div>
     <a onclick="__get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
     <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
+    <a onclick="__update_profile()" href="javascript:void(0);">Update Profile</a>
     <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
     <a onclick="__get_all_friends()" href="javascript:void(0);">Get All Friends</a>
     <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
