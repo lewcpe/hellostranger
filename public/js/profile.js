@@ -73,16 +73,11 @@ $('table').on('click', 'td.qr', function(){
   var pid = $(this).attr('pid');
   var url = `${location.origin}/accept.html#token=${btoa(pid)}`;
   $('#qr-modal .qr').html('');
-  /*
-  new QRCode($('#qr-modal .qr')[0], url);
-  */
-
   var qrcode = new QRCode($('#qr-modal .qr')[0], {
       text: url,
       width: 200,
       height: 200,
   });
-
   $('#qr-modal .url').html(`or <a href='${url}'>link</a>`);
   $('#qr-modal').modal('open');
 });
