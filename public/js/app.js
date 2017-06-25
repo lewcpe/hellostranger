@@ -63,7 +63,7 @@ function remove_profile(profile_id) {
 //Add Friend use "PROFILE ID" not "USER ID"
 function add_friend(my_profileid, his_profileid, cuid) {
     cuid = cuid || firebase.auth().currentUser.uid;
-    get_profile_detail(his_profileid).then(function(his_detail) {
+    return get_profile_detail(his_profileid).then(function(his_detail) {
         if (his_detail.status == 0) {
             return false;
         }

@@ -1,3 +1,5 @@
+var REQUEST_PID = null;
+
 // bind post item
 $('.new.red.btn-floating').click(function(){
   $('#post-modal').modal('open');
@@ -24,6 +26,19 @@ $('.new.red.btn-floating').click(function(){
   }
 });
 
+// bind request friend modal buttons
+$('#request-friend-modal #accept').click(function(){
+  var my_pid = $('#request-friend-modal input[name=accept_profile]:checked').attr('id');
+  add_friend(my_pid, REQUEST_PID).then(function(){
+    localStorage.removeItem('REQUEST_FRIEND_TOKEN');
+    $('#request-friend-modal').modal('close');
+  });
+});
+$('#request-friend-modal #reject').click(function(){
+  localStorage.removeItem('REQUEST_FRIEND_TOKEN');
+  $('#request-friend-modal').modal('close');
+});
+
 // submit post item
 $('#post-modal #submit').click(function(){
   var uids = $.map($('.allow-friends input:checked'), function(r, i){
@@ -48,7 +63,7 @@ firebase.auth().onAuthStateChanged(function(user){
         $('#request-friend-modal .accept-profile').append(`
           <p>
             <input name="accept_profile" type="radio" id="${pid}" />
-            <label for="accept_profile">${profile.name}</label>
+            <label for="${pid}">${profile.name}</label>
           </p>
         `);
       }
@@ -59,5 +74,21 @@ firebase.auth().onAuthStateChanged(function(user){
       alert('Profile not found');
     }
   });
+
+  // display request friend modal if request-friend-token exist
+  var rf_token = localStorage.getItem('REQUEST_FRIEND_TOKEN');
+  if(rf_token){
+    REQUEST_PID = atob(rf_token);
+    if(false){ // TODO if owner pid, remove this token
+      localStorage.removeItem('REQUEST_FRIEND_TOKEN');
+    }
+    else {
+      get_profile_detail(REQUEST_PID).then(function(profile){
+        $('#request-friend-modal .name').html(profile.name);
+        $('#request-friend-modal .bio').html(profile.bio);
+        $('#request-friend-modal').modal('open');
+      });
+    }
+  }
 
 });
