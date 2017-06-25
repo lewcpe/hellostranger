@@ -98,6 +98,7 @@ var signInWithPopup = function() {
  * Displays the UI for a signed in user.
  * @param {!firebase.User} user
  */
+var CREATED_PROFILE_FLAG = false;
 var handleSignedInUser = function(user) {
   get_all_profiles().then(function(snap){
     if(snap.val()){
@@ -105,8 +106,21 @@ var handleSignedInUser = function(user) {
       location.href = 'index.html';
     }
     else {
-      // just register
-      location.href = 'add_profile.html';
+      if(!CREATED_PROFILE_FLAG){
+        CREATED_PROFILE_FLAG = true;
+        // new comer, auto create new profile and go to feed
+        var rewriter = new Rewriter();
+        var name = generateName();
+        var bio = rewriter.FullSubstitution("<bio>", bioGrammar);
+        var pic = '<3'; // TODO add later
+        create_new_profile(name, bio, pic).then(function(){
+          location.href = 'index.html';
+        });
+      }
+      else {
+        // ignore duplicate event from somewhere
+        // TODO where is duplicate event from ?
+      }
     }
   })
 };
