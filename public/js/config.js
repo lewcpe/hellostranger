@@ -29,28 +29,44 @@ if ('serviceWorker' in navigator) {
         })
         .then((token) => {
             console.log('TOKEN RECEIVED: ' + token);
-            //TODO:send token to server
-            // Setup token
-            // Simple ajax call to send user token to server for saving
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/api/setToken',
-            //     dataType: 'json',
-            //     data: JSON.stringify({token: token}),
-            //     contentType: 'application/json',
-            //     success: (data) => {
-            //         console.log('Success ', data);
-            //     },
-            //     error: (err) => {
-            //         console.log('Error ', err);
-            //     }
-            // })
+            updateToken();
         })
         .catch((err) => {
             console.log('ServiceWorker registration failed: ', err);
         });
     });
 }
+
+function updateToken() {
+ // Get Instance ID token. Initially this makes a network call, once retrieved
+ // subsequent calls to getToken will return from cache.
+    messaging.getToken()
+    .then(function(currentToken) {
+        if (currentToken) {
+            console.log("currentToken", currentToken);
+            //$("#token").html(currentToken);
+        } else {
+            // Show permission request.
+            console.log("No Instance ID token available. Request permission to generate one.");
+            //$("#token").html("foo");
+        }
+    })
+    .catch(function(err) {
+        console.log("An error occurred while retrieving token. ", err);
+    });
+}
+
+// Callback fired if Instance ID token is updated.
+messaging.onTokenRefresh(function() {
+   messaging.getToken()
+   .then(function(refreshedToken) {
+     console.log('TOKEN REFRESHED: ' + token);
+     updateToken();
+   })
+   .catch(function(err) {
+     console.log('Unable to retrieve refreshed token ', err);
+   });
+});
 
 //Handle message
 messaging.onMessage((payload) => {
