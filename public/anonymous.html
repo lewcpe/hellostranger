@@ -100,6 +100,11 @@
             console.log(snap.val());
         });
     }
+    function __remove_post() {
+        remove_post("-KnPnEYFBABxw0rMaqgs").then(function(snap) {
+            console.log("Post removed");
+        });
+    }
     function __get_timeline() {
         get_timeline().then(function(snap) {
             console.log("Get TL Outside");
@@ -120,7 +125,9 @@
         });
     }
     function __create_comment() {
-        create_new_comment("Thinking about it", "post-3509ckf395");
+        create_new_comment("Thinking about it", "-KnPnEYFBABxw0rMaqgs").then(function(snap) {
+            console.log("Comment Created");
+        });
     }
     function __get_comment_for_post() {
         get_comment_for_post("post-3509ckf395").then(function(snap) {
@@ -157,6 +164,7 @@
     <div id="post_test">
         <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
         <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
+        <a onclick="__remove_post()" href="javascript:void(0);">Remove Post</a>
         <a onclick="__get_timeline()" href="javascript:void(0);">Get Timeline</a>
     </div>
     <div id="comment_test">

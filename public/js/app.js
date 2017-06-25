@@ -161,6 +161,22 @@ function get_timeline() {
     });
 }
 
+function remove_post(postid) {
+    let uid = firebase.auth().currentUser.uid;
+    let postref = firebase.database().ref("post/" + postid)
+    return postref.once('value').then(function(snap) {
+        let comment_query = firebase.database().ref('comments').orderByChild('postid').equalTo(postid).once('value');
+        console.log("Removing Post - " + snap.key);
+        snap.ref.remove();
+        return comment_query.then(function(qsnap) {
+            qsnap.forEach(function(csnap) {
+                csnap.ref.remove()
+                console.log("Removing comment - " + csnap.key)
+            });
+        });
+    });
+}
+
 // Comments API
 
 function create_new_comment(message, postid) {
