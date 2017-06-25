@@ -56,7 +56,12 @@ self.addEventListener('notificationclick', (event) => {
 
 //Cache
 toolbox.options.debug = true;
+toolbox.precache(['index.html']);
+toolbox.router.get('/', toolbox.networkFirst);
 
-toolbox.router.get("manifest.json", toolbox.networkFirst)
-toolbox.router.get("index.html", toolbox.networkFirst)
-toolbox.router.get("login.html", toolbox.networkFirst)
+toolbox.router.get('/(.*)', toolbox.cacheFirst, {origin: 'https://www.gstatic.com'});
+toolbox.router.get("manifest.json", toolbox.networkFirst);
+//toolbox.router.get("index.html", toolbox.networkFirst);
+toolbox.router.get("css/*.css", toolbox.networkFirst);
+toolbox.router.get("js/*.js", toolbox.networkFirst);
+toolbox.router.get("lib/*.js", toolbox.networkFirst);
