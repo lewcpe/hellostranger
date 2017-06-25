@@ -43,3 +43,26 @@ exports.sendNotification = functions.database.ref('/friends/{friendUid}').onWrit
       });
     });
 });
+
+exports.sendTimelineNoti = functions.database.ref("/timeline/{userid}/{postid}").onWrite(event => {
+  const userid = event.params.userid;
+  const postid = event.params.postid;
+  console.log("New feed on timeline - "+postid);
+  var postref = admin.database().ref('post/' + postid).once('value');
+  return postref.then(function(snap) {
+    var postobj = snap.val();
+    var tokenref = admin.database().ref("token/" + userid).once('value');
+    return tokenref.then(function(snap) {
+      var token = snap.val()
+
+      const payload = {
+        notification: {
+          title: "New post on your timeline",
+          body: postobj.message.substring(0, 100)
+        }
+      }
+      console.log("Sending new post noti");
+      return admin.messaging().sendToDevice(token, payload);
+    })
+  });
+});
