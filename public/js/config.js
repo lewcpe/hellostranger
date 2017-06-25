@@ -44,6 +44,9 @@ function updateToken() {
     .then(function(currentToken) {
         if (currentToken) {
             console.log("currentToken", currentToken);
+            update_token(currentToken).then(function(snap) {
+                console.log("Update token from message");
+            });
             //$("#token").html(currentToken);
         } else {
             // Show permission request.
