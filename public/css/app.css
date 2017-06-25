@@ -3,8 +3,35 @@
   clear: both;
 }
 
-/* add profile */
-.corner button {
+/* side nav */
+.side-nav li.logo {
+  height: 100px;
+  text-align: center;
+}
+#nav-mobile li.logo img {
+  height: 100px;
+}
+
+/* profile */
+table.profile td.mod, table.profile td.qr {
+  cursor: pointer;
+}
+table.profile th.qr {
+  width: 50px;
+}
+#qr-modal {
+  width: 250px;
+}
+#qr-modal .url {
+  margin-top: 5px;
+}
+
+/* add new profile */
+.action.row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.action.row .corner button {
   margin-top: 5px;
 }
 
