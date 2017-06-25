@@ -95,7 +95,7 @@ function get_all_friends(cuid) {
 function remove_friend(friendid) {
     var uid = firebase.auth().currentUser.uid;
     var friendref = firebase.database().ref("friends/" + friendid);
-    friendref.once('value').then(function(snap) {
+    return friendref.once('value').then(function(snap) {
         friendobj = snap.val()
         if (friendobj.owner != uid) {
             return false;

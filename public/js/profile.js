@@ -32,6 +32,7 @@ function refresh_profile_table(){
     }
     else {
       alert('Profile not found');
+      $('table tbody').html('');
     }
   });
 }
@@ -57,7 +58,6 @@ $('table').on('click', 'td.mod', function(){
 
   $('#profile-modal').modal('open', {
     ready: function(modal, trigger){
-      var rewriter = new Rewriter();
       $('#name').val(CURRENT_PROFILE.name);
       $('#bio').val(CURRENT_PROFILE.bio);
       $('#bio').focus();

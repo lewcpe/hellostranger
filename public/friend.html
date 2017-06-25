@@ -55,7 +55,7 @@
 
       <div class="action row">
         <div class="col s12">
-          <h5>Profile</h5>
+          <h5>Friends</h5>
         </div>
       </div>
       <div class="row">
@@ -66,12 +66,11 @@
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th class='qr'>QR</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan='2'>
+                    <td>
                       <div class="progress">
                         <div class="indeterminate"></div>
                       </div>
@@ -93,36 +92,26 @@
 
     </div>
 
-    <!-- profile modal -->
-    <div id="profile-modal" class="modal">
+    <!-- friend modal -->
+    <div id="request-friend-modal" class="modal">
       <div class="modal-content">
         <div class="action row">
-          <div class="col m6 hide-on-small-only">
-            <h5>Add new profile</h5>
+          <div class="col m6 s12">
+            <h5>Friend info</h5>
           </div>
           <div class="col m6 s12 corner right-align">
-            <button id='add' class="btn waves-effect waves-light" type="submit" name="action">ADD</button>
-            <button id='edit' class="btn waves-effect waves-light" type="submit" name="action">EDIT</button>
-            <button id='del' class="btn waves-effect waves-light" type="submit" name="action">DEL</button>
+            <button id='del' class="btn waves-effect waves-light" type="submit" name="action">DELETE</button>
           </div>
         </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="name" type="text" class="validate">
-            <label for="name">Name</label>
+        <div class="info row">
+          <div class="col m4 s12">
+            <img class='avatar' src='android-chrome-192x192.png'>
           </div>
-          <div class="input-field col s12">
-            <textarea id="bio" class="materialize-textarea"></textarea>
-            <label for="bio">Bio</label>
+          <div class="col m8 s12">
+            <p class='name bold'>Username</p>
+            <p class='bio'>f;i fdsafjdsa kfjdsa f;lkdsa fdsdsalkfjs fdsa;lkfj dsa;lkfsd jflkd jf;lkdsafj ds;alfds</p>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div id="qr-modal" class="modal">
-      <div class="modal-content">
-        <div class='qr'></div>
-        <div class='url center-align'></div>
       </div>
     </div>
 
@@ -132,14 +121,6 @@
     <!-- EOF scripts -->
     <script type="text/javascript" src="js/ui.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/random_name.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/inherit.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/PhraseValidator.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/bioGrammar.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/Rewriter.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/parser.js"></script>
-    <script type="text/javascript" src="lib/bio-gen/token.js"></script>
-    <script type="text/javascript" src="lib/qrcode.min.js"></script>
-    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="js/friend.js"></script>
   </body>
 </html>
