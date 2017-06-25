@@ -221,6 +221,20 @@ function remove_comment(commentid) {
     });
 }
 
-function get_comment_for_post_with_uid(postid, cuid) {
-    
+// Message Token
+
+function update_token(token) {
+    let uid = firebase.auth().currentUser.uid;
+    let tokenref = firebase.database().ref("token")
+    console.log("Set token = " + token);
+    return tokenref.child(uid).set(token);
+}
+
+function get_token(uid) {
+    let cuid = uid || firebase.auth().currentUser.uid;
+    let tokenref = firebase.database().ref("token/" + cuid).once('value');
+    return tokenref.then(function(snap) {
+        return snap.val();
+    });
+
 }

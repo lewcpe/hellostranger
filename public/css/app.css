@@ -2,6 +2,12 @@
 .clear {
   clear: both;
 }
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
 
 /* side nav */
 .side-nav li.logo {
@@ -53,4 +59,14 @@ table.profile th.qr {
 .card .card-action.friend img {
   border-radius: 50%;
   height: 40px;
+}
+#request-friend-modal .action button {
+  padding-left: 19px;
+  padding-right: 18px;
+}
+#request-friend-modal .info {
+  margin-bottom: 0px;
+}
+#request-friend-modal .avatar {
+  width: 100%;
 }

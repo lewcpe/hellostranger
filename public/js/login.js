@@ -122,7 +122,7 @@ var handleSignedInUser = function(user) {
         // TODO where is duplicate event from ?
       }
     }
-  })
+  });
 };
 
 
