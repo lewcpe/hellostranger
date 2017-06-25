@@ -140,6 +140,19 @@
             console.log("remove done");
         });
     }
+    function __update_token() {
+        let token = Math.random().toString(36).substring(7);
+        console.log("token --- " + token);
+        update_token(token).then(function(snap) {
+            console.log("Token Updated");
+        });
+    }
+    function __get_token() {
+        get_token().then(function(snap) {
+            console.log("Get token");
+            console.log(snap);
+        });
+    }
     </script>
   </head>
   <body>
@@ -171,6 +184,10 @@
         <a onclick="__create_comment()" href="javascript:void(0);">Create Comment</a>
         <a onclick="__get_comment_for_post()" href="javascript:void(0);">Get Comments</a>
         <a onclick="__remove_comment()" href="javascript:void(0);">Remove Comment</a>
+    </div>
+    <div id="token_test">
+        <a onclick="__update_token()" href="javascript:void(0);">Update Token</a>
+        <a onclick="__get_token()" href="javascript:void(0);">Get Token</a>
     </div>
     <script>
         login_form = document.querySelector('#login_form');
