@@ -128,6 +128,11 @@
             console.log(snap.val());
         })
     }
+    function __remove_comment() {
+        remove_comment("-KnTF8HvC5dUOrOsTgOm").then(function() {
+            console.log("remove done");
+        });
+    }
     </script>
   </head>
   <body>
@@ -157,6 +162,7 @@
     <div id="comment_test">
         <a onclick="__create_comment()" href="javascript:void(0);">Create Comment</a>
         <a onclick="__get_comment_for_post()" href="javascript:void(0);">Get Comments</a>
+        <a onclick="__remove_comment()" href="javascript:void(0);">Remove Comment</a>
     </div>
     <script>
         login_form = document.querySelector('#login_form');

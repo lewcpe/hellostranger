@@ -181,6 +181,30 @@ function get_comment_for_post(postid) {
     return firebase.database().ref("comments").orderByChild("postid").equalTo(postid).once('value')
 }
 
-function get_comment_for_post_with_uid(postid, cuid) {
+function remove_comment(commentid) {
+    var uid = firebase.auth().currentUser.uid;
+    var commentref = firebase.database().ref("comments/" + commentid)
+    return commentref.once('value').then(function(snap) {
+        commentobj = snap.val();
+        if (commentobj.owner == uid) {
+            console.log("Remove by Comment Owner");
+            commentref.remove();
+            return null
+        }
+        var postref = firebase.database().ref("post/" + commentobj.postid)
+        return portref.once('value').then(function(snap) {
+            postobj = snap.val();
+            if (postobj.owner == uid) {
+                console.log("Remove by Post Owner");
+                commentref.remove();
+                return null;
+            }
+            console.log("Cannot Remove");
+            return false;
+        });
+    });
+}
 
+function get_comment_for_post_with_uid(postid, cuid) {
+    
 }
