@@ -37,7 +37,7 @@ function create_new_profile(displayname, bio, pic) {
 
 function update_profile(profile_id, displayname, bio, pic) {
     var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
-    profile_detail_ref.once('value').then(function(snap) {
+    return profile_detail_ref.once('value').then(function(snap) {
         var profile = snap.val()
         profile.name = displayname;
         profile.bio = bio;
@@ -45,6 +45,18 @@ function update_profile(profile_id, displayname, bio, pic) {
         var updates = {}
         updates['profile/' + profile_id] = profile;
         return firebase.database().ref().update(updates);
+    });
+}
+
+function remove_profile(profile_id) {
+    var cuid = firebase.auth().currentUser.uid;
+    var profile_detail_ref = firebase.database().ref("profile/" + profile_id);
+    return profile_detail_ref.once('value').then(function(snap) {
+        profileobj = snap.val();
+        if (profileobj.owner != cuid) {
+            return false;
+        }
+        snap.ref.remove();
     });
 }
 

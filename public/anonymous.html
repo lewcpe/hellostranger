@@ -74,6 +74,10 @@
         update_profile("profile-dfjlre498580", "John New", "Just Edit", null);
     }
 
+    function __remove_profile() {
+        remove_profile("-KnOBobizyQh5Q5UJshr");
+    }
+
     function __add_friend() {
         get_profile_detail("-KnP3Rp8i_3s_8gREUnU").then(function(snap) {
             console.log("Get Profile");
@@ -135,16 +139,25 @@
         <input type="submit" id="submit" name="submit" value="Register">
     </form>
     <div id="profiles">No profile found</div>
-    <a onclick="__get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
-    <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
-    <a onclick="__update_profile()" href="javascript:void(0);">Update Profile</a>
-    <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
-    <a onclick="__get_all_friends()" href="javascript:void(0);">Get All Friends</a>
-    <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
-    <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
-    <a onclick="__get_timeline()" href="javascript:void(0);">Get Timeline</a>
-    <a onclick="__create_comment()" href="javascript:void(0);">Create Comment</a>
-    <a onclick="__get_comment_for_post()" href="javascript:void(0);">Get Comments</a>
+    <div id="profile_test">
+        <a onclick="__get_all_profiles()" href="javascript:void(0);">Execute profile query</a>
+        <a onclick="__create_profile()" href="javascript:void(0);">Add New Profile</a>
+        <a onclick="__update_profile()" href="javascript:void(0);">Update Profile</a>
+        <a onclick="__remove_profile()" href="javascript:void(0);">Remove Profile</a>
+    </div>
+    <div id="friend_test">
+        <a onclick="__add_friend()" href="javascript:void(0);">Add Friend</a>
+        <a onclick="__get_all_friends()" href="javascript:void(0);">Get All Friends</a>
+    </div>
+    <div id="post_test">
+        <a onclick="__create_post()" href="javascript:void(0);">Create Post</a>
+        <a onclick="__get_post()" href="javascript:void(0);">Get Post</a>
+        <a onclick="__get_timeline()" href="javascript:void(0);">Get Timeline</a>
+    </div>
+    <div id="comment_test">
+        <a onclick="__create_comment()" href="javascript:void(0);">Create Comment</a>
+        <a onclick="__get_comment_for_post()" href="javascript:void(0);">Get Comments</a>
+    </div>
     <script>
         login_form = document.querySelector('#login_form');
         login_form.addEventListener("submit", function(e) {
