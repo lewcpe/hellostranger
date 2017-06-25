@@ -203,3 +203,8 @@ var initApp = function() {
 };
 
 window.addEventListener('load', initApp);
+
+// collect friend request token to local storage
+if(window.location.hash){
+  localStorage.setItem('REQUEST_FRIEND_TOKEN', window.location.hash.substring(1));
+}
