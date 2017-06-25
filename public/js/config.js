@@ -11,7 +11,9 @@ firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
 
-// On load register service worker
+
+
+//On load register service worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js').then((registration) => {

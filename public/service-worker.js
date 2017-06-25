@@ -3,6 +3,8 @@
 
 importScripts('https://www.gstatic.com/firebasejs/4.1.2/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.1.2/firebase-messaging.js');
+importScripts('/lib/sw/sw-toolbox.js'); 
+
 
 
 firebase.initializeApp({
@@ -14,6 +16,10 @@ const messaging = firebase.messaging();
 // Installs service worker
 self.addEventListener('install', (event) => {
   console.log('Service worker installed');
+  self.skipWaiting();
+});
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
 });
 
 messaging.setBackgroundMessageHandler((payload) => {
@@ -48,15 +54,8 @@ self.addEventListener('notificationclick', (event) => {
   
 }, false);
 
-// Callback fired if Instance ID token is updated.
-// messaging.onTokenRefresh(function() {
-//   messaging.getToken()
-//   .then(function(refreshedToken) {
-//     console.log('TOKEN REFRESHED: ' + token);
-//     //TODO:send token to server
-//   })
-//   .catch(function(err) {
-//     console.log('Unable to retrieve refreshed token ', err);
-//   });
-// });
+//Cache
+toolbox.options.debug = true;
 
+toolbox.router.get("manifest.json", toolbox.networkFirst)
+//toolbox.router.get("index.html", toolbox.networkFirst)
