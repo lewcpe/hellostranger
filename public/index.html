@@ -101,7 +101,7 @@
     <!-- post modal -->
     <div id="post-modal" class="modal">
       <div class="modal-content">
-        <div class="row">
+        <div class="action row">
           <div class="col m6 hide-on-small-only">
             <h5>Post new message</h5>
           </div>
@@ -125,12 +125,60 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12">
-            <h5>Allow friends</h5>
+          <div class="col s12">
+            <p class='bold'>Allow friends</p>
             <div class='allow-friends'>
               <div class="progress">
                 <div class="indeterminate"></div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- request friend modal -->
+    <div id="request-friend-modal" class="modal">
+      <div class="modal-content">
+        <div class="action row">
+          <div class="col m6 s12">
+            <h5>Friend request</h5>
+          </div>
+          <div class="col m6 s12 corner right-align">
+            <button id='reject' class="red btn waves-effect waves-light" type="submit" name="action">REJECT</button>
+            <button id='accept' class="green btn waves-effect waves-light" type="submit" name="action">ACCEPT</button>
+          </div>
+        </div>
+        <div class="info row">
+          <div class="col m4 s12">
+            <img class='avatar' src='android-chrome-192x192.png'>
+          </div>
+          <div class="col m8 s12">
+            <p class='name bold'>Username</p>
+            <p class='bio'>f;i fdsafjdsa kfjdsa f;lkdsa fdsdsalkfjs fdsa;lkfj dsa;lkfsd jflkd jf;lkdsafj ds;alfds</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <p class='bold'>Accept profile</p>
+            <div class='accept-profile'>
+              <div class="progress">
+                <div class="indeterminate"></div>
+              </div>
+              <!--
+              <p>
+                <input name="group1" type="radio" id="test1" checked />
+                <label for="test1">Red</label>
+              </p>
+              <p>
+                <input name="group1" type="radio" id="test2" />
+                <label for="test2">Yellow</label>
+              </p>
+              <p>
+                <input class="with-gap" name="group1" type="radio" id="test3"  />
+                <label for="test3">Green</label>
+              </p>
+              -->
             </div>
           </div>
         </div>
